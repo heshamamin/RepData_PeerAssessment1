@@ -44,6 +44,4 @@ interval.summary$interval[which.max(interval.summary$mean)]
 sum(is.na(raw.data$steps))
 ```
 
-
-
 ## Are there differences in activity patterns between weekdays and weekends?
