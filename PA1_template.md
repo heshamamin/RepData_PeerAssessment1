@@ -58,7 +58,14 @@ interval.summary$interval[which.max(interval.summary$mean)]
 ```
 
 ## Imputing missing values
+### Total number of missing values in the dataset
 
+```r
+sum(is.na(raw.data$steps))
+```
 
+```
+## [1] 2304
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
