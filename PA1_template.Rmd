@@ -45,4 +45,5 @@ sum(is.na(raw.data$steps))
 ```
 
 
+
 ## Are there differences in activity patterns between weekdays and weekends?
