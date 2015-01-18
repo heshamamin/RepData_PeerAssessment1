@@ -105,6 +105,12 @@ plot(x = interval.summary$interval, y = interval.summary$mean,type = &quot;l&quo
 <pre class="r"><code>sum(is.na(raw.data$steps))</code></pre>
 <pre><code>## [1] 2304</code></pre>
 </div>
+<div id="strategy-for-filling-in-all-of-the-missing-values-in-the-dataset" class="section level3">
+<h3>Strategy for filling in all of the missing values in the dataset</h3>
+<p>Missing step data will be filled using same 5-minute interval</p>
+<pre class="r"><code>imputed.data &lt;- merge(x = raw.data, y = interval.summary, by = &quot;interval&quot;)
+imputed.data &lt;- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))</code></pre>
+</div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>

@@ -67,6 +67,13 @@ sum(is.na(raw.data$steps))
 ```
 ## [1] 2304
 ```
+### Strategy for filling in all of the missing values in the dataset
+Missing step data will be filled using same 5-minute interval
+
+```r
+imputed.data <- merge(x = raw.data, y = interval.summary, by = "interval")
+imputed.data <- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
