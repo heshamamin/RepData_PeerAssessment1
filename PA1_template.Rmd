@@ -48,6 +48,7 @@ Missing step data will be filled using same 5-minute interval
 ```{r}
 imputed.data <- merge(x = raw.data, y = interval.summary, by = "interval")
 imputed.data <- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))
+imputed.data <- imputed.data[, c("interval","steps","date")]
 ```
 
 
