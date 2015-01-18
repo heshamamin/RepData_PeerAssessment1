@@ -75,6 +75,33 @@ imputed.data <- merge(x = raw.data, y = interval.summary, by = "interval")
 imputed.data <- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))
 imputed.data <- imputed.data[, c("interval","steps","date")]
 ```
+#### Historgram of the total number of steps taken each day after imputing data
 
+```r
+imputed.by.day <- group_by(imputed.data, date)
+imputed.day.summary <- imputed.by.day %>% summarise(total = sum(steps))
+hist(imputed.day.summary$total, xlab = "Number of steps", main = "Total number of steps taken each day")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+
+#### Mean and median total number of steps taken per day after imputing data
+
+```r
+mean(imputed.day.summary$total)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+median(imputed.day.summary$total)
+```
+
+```
+## [1] 10766.19
+```
+From the histogram, mean and median values,  the impact of imputing missing data on the estimates of the total daily number of steps is that the number is increased by around 14%
 
 ## Are there differences in activity patterns between weekdays and weekends?
