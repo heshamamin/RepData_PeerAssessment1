@@ -65,7 +65,17 @@ median(imputed.day.summary$total)
 From the histogram, mean and median values,  the impact of imputing missing data on the estimates of the total daily number of steps is that the number is increased by around 14%
 
 ## Are there differences in activity patterns between weekdays and weekends?
+### Adding the "weekend","weekday" classification:
+Assuming weekend days are Saturday and Sunday
 ```{r}
 imputed.data <- mutate(imputed.data, day.type = ifelse(weekdays(as.POSIXct(date)) %in% c("Saturday", "Sunday"), "weekend","weekday"))
 imputed.data$day.type <- as.factor(imputed.data$day.type)
+```
+
+### Plot of the average number of steps taken, averaged across all weekday days or weekend days 
+```{r}
+library(ggplot2)
+imputed.by.interval <- group_by(imputed.data, interval, day.type)
+imputed.interval.summary <- imputed.by.interval %>% summarise(mean = mean(steps))
+qplot(x = interval, y = mean, data = imputed.interval.summary, geom = "line", xlab="Interval", ylab="Number of steps") + facet_wrap(~day.type,ncol=1)
 ```
