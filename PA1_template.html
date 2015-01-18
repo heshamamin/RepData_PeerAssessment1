@@ -107,7 +107,7 @@ plot(x = interval.summary$interval, y = interval.summary$mean,type = &quot;l&quo
 </div>
 <div id="strategy-for-filling-in-all-of-the-missing-values-in-the-dataset" class="section level3">
 <h3>Strategy for filling in all of the missing values in the dataset</h3>
-<p>Missing step data will be filled using same 5-minute interval</p>
+<p>Missing step data will be filled using means of same 5-minute interval</p>
 <pre class="r"><code>imputed.data &lt;- merge(x = raw.data, y = interval.summary, by = &quot;interval&quot;)
 imputed.data &lt;- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps)) %&gt;% arrange(date)
 imputed.data &lt;- imputed.data[, c(&quot;interval&quot;,&quot;steps&quot;,&quot;date&quot;)]</code></pre>
