@@ -109,7 +109,7 @@ plot(x = interval.summary$interval, y = interval.summary$mean,type = &quot;l&quo
 <h3>Strategy for filling in all of the missing values in the dataset</h3>
 <p>Missing step data will be filled using same 5-minute interval</p>
 <pre class="r"><code>imputed.data &lt;- merge(x = raw.data, y = interval.summary, by = &quot;interval&quot;)
-imputed.data &lt;- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))
+imputed.data &lt;- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps)) %&gt;% arrange(date)
 imputed.data &lt;- imputed.data[, c(&quot;interval&quot;,&quot;steps&quot;,&quot;date&quot;)]</code></pre>
 <div id="historgram-of-the-total-number-of-steps-taken-each-day-after-imputing-data" class="section level4">
 <h4>Historgram of the total number of steps taken each day after imputing data</h4>
@@ -130,6 +130,8 @@ hist(imputed.day.summary$total, xlab = &quot;Number of steps&quot;, main = &quot
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+<pre class="r"><code>imputed.data &lt;- mutate(imputed.data, day.type = ifelse(weekdays(as.POSIXct(date)) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;), &quot;weekend&quot;,&quot;weekday&quot;))
+imputed.data$day.type &lt;- as.factor(imputed.data$day.type)</code></pre>
 </div>
 
 

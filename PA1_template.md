@@ -72,7 +72,7 @@ Missing step data will be filled using same 5-minute interval
 
 ```r
 imputed.data <- merge(x = raw.data, y = interval.summary, by = "interval")
-imputed.data <- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps))
+imputed.data <- mutate(imputed.data, steps = ifelse(is.na(steps), mean, steps)) %>% arrange(date)
 imputed.data <- imputed.data[, c("interval","steps","date")]
 ```
 #### Historgram of the total number of steps taken each day after imputing data
@@ -105,3 +105,8 @@ median(imputed.day.summary$total)
 From the histogram, mean and median values,  the impact of imputing missing data on the estimates of the total daily number of steps is that the number is increased by around 14%
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+```r
+imputed.data <- mutate(imputed.data, day.type = ifelse(weekdays(as.POSIXct(date)) %in% c("Saturday", "Sunday"), "weekend","weekday"))
+imputed.data$day.type <- as.factor(imputed.data$day.type)
+```
